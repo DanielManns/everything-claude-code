@@ -1,1 +1,7 @@
-/home/dmanns/.claude/.agents/skills/backend-patterns/agents/openai.yaml
+interface:
+  display_name: "Backend Patterns"
+  short_description: "API design, database, and server-side patterns"
+  brand_color: "#F59E0B"
+  default_prompt: "Apply backend patterns: API design, repository, caching"
+policy:
+  allow_implicit_invocation: true
