@@ -31,11 +31,18 @@ class Point(NamedTuple):
     y: float
 ```
 
-## Formatting
+## Package Manager & Task Runner
 
-- **black** for code formatting
-- **isort** for import sorting
-- **ruff** for linting
+- Use **uv** for dependency management and virtual environments (`uv sync`, `uv run`)
+- Use **just** as the task runner (`just test`, `just main`, `just setup`)
+- Never use `pip install` directly — always go through `uv`
+
+## Formatting & Linting
+
+- **ruff** for both formatting and linting (replaces black + isort + flake8)
+  - Format: `ruff format`
+  - Lint: `ruff check`
+- Do **not** use `black` or `isort` — `ruff` handles both
 
 ## Reference
 

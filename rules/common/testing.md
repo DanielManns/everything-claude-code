@@ -24,6 +24,10 @@ MANDATORY workflow:
 3. Verify mocks are correct
 4. Fix implementation, not tests (unless tests are wrong)
 
+## E2E Test Documentation
+
+Document E2E tests in **Xray** at minimum for cross-cutting user flows.
+
 ## Agent Support
 
 - **tdd-guide** - Use PROACTIVELY for new features, enforces write-tests-first

@@ -19,6 +19,12 @@ Before ANY commit:
 - Validate that required secrets are present at startup
 - Rotate any secrets that may have been exposed
 
+## Privacy
+
+- Always redact secrets and personal data from logs before sharing or committing
+- Never paste API keys, tokens, passwords, or JWTs anywhere
+- Review output before sharing — remove any sensitive data
+
 ## Security Response Protocol
 
 If security issue found:

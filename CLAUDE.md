@@ -1,60 +1,64 @@
-# CLAUDE.md
+# Claude Code — User Configuration
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Core Philosophy
 
-## Project Overview
+**Key Principles:**
+1. **Agent-First**: Delegate to specialized agents for complex work
+2. **Parallel Execution**: Use Task tool with multiple agents when possible
+3. **Plan Before Execute**: Use Plan Mode for complex operations
+4. **Test-Driven**: Write tests before implementation
+5. **Security-First**: Never compromise on security
 
-This is a **Claude Code plugin** - a collection of production-ready agents, skills, hooks, commands, rules, and MCP configurations. The project provides battle-tested workflows for software development using Claude Code.
+---
 
-## Running Tests
+## Rules
 
-```bash
-# Run all tests
-node tests/run-all.js
+Detailed, actionable standards live in `~/.claude/rules/`:
 
-# Run individual test files
-node tests/lib/utils.test.js
-node tests/lib/package-manager.test.js
-node tests/hooks/hooks.test.js
-```
+| File | Contents |
+|---|---|
+| [common/coding-style.md](rules/common/coding-style.md) | Immutability, file organization, repo structure, error handling |
+| [common/testing.md](rules/common/testing.md) | TDD workflow, 80% coverage, Xray documentation |
+| [common/git-workflow.md](rules/common/git-workflow.md) | Commit format, branching, PR workflow, SemVer, Definition of Done |
+| [common/development-workflow.md](rules/common/development-workflow.md) | Full feature pipeline: research → plan → TDD → review → commit |
+| [common/security.md](rules/common/security.md) | Security checks, secret management, privacy |
+| [common/agents.md](rules/common/agents.md) | Agent orchestration, when to use which agent |
+| [common/patterns.md](rules/common/patterns.md) | API response, repository patterns |
+| [common/performance.md](rules/common/performance.md) | Model selection, context management |
+| [common/hooks.md](rules/common/hooks.md) | Hooks system |
 
-## Architecture
+Language-specific overrides: `rules/python/`, `rules/golang/`, `rules/typescript/`, `rules/kotlin/`, `rules/swift/`, `rules/php/`
 
-The project is organized into several core components:
+---
 
-- **agents/** - Specialized subagents for delegation (planner, code-reviewer, tdd-guide, etc.)
-- **skills/** - Workflow definitions and domain knowledge (coding standards, patterns, testing)
-- **commands/** - Slash commands invoked by users (/tdd, /plan, /e2e, etc.)
-- **hooks/** - Trigger-based automations (session persistence, pre/post-tool hooks)
-- **rules/** - Always-follow guidelines (security, coding style, testing requirements)
-- **mcp-configs/** - MCP server configurations for external integrations
-- **scripts/** - Cross-platform Node.js utilities for hooks and setup
-- **tests/** - Test suite for scripts and utilities
+## Available Agents
 
-## Key Commands
+Located in `~/.claude/agents/`:
 
-- `/tdd` - Test-driven development workflow
-- `/plan` - Implementation planning
-- `/e2e` - Generate and run E2E tests
-- `/code-review` - Quality review
-- `/build-fix` - Fix build errors
-- `/learn` - Extract patterns from sessions
-- `/skill-create` - Generate skills from git history
+| Agent | Purpose |
+|---|---|
+| planner | Feature implementation planning |
+| architect | System design and architecture |
+| tdd-guide | Test-driven development |
+| code-reviewer | Code review for quality and security |
+| security-reviewer | Security vulnerability analysis |
+| build-error-resolver | Build error resolution |
+| e2e-runner | Playwright E2E testing |
+| refactor-cleaner | Dead code cleanup |
+| doc-updater | Documentation updates |
 
-## Development Notes
+---
 
-- Package manager detection: npm, pnpm, yarn, bun (configurable via `CLAUDE_PACKAGE_MANAGER` env var or project config)
-- Cross-platform: Windows, macOS, Linux support via Node.js scripts
-- Agent format: Markdown with YAML frontmatter (name, description, tools, model)
-- Skill format: Markdown with clear sections for when to use, how it works, examples
-- Hook format: JSON with matcher conditions and command/notification hooks
+## Editor
 
-## Contributing
+VSCode with Claude Code extension.
 
-Follow the formats in CONTRIBUTING.md:
-- Agents: Markdown with frontmatter (name, description, tools, model)
-- Skills: Clear sections (When to Use, How It Works, Examples)
-- Commands: Markdown with description frontmatter
-- Hooks: JSON with matcher and hooks array
+---
 
-File naming: lowercase with hyphens (e.g., `python-reviewer.md`, `tdd-workflow.md`)
+## Knowledge Capture
+
+- Personal debugging notes, preferences, and temporary context → auto memory
+- Each service has its own `docs/` directory for service-level documentation
+- Cross-cutting and top-level documentation lives in a separate dedicated git repository; pull from there before adding new top-level docs
+- If the current task already produces the relevant docs or examples, do not duplicate elsewhere
+- If unsure where something belongs, ask before creating a new top-level doc

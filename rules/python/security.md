@@ -9,22 +9,33 @@ paths:
 
 ## Secret Management
 
+Secrets are **never stored in environment variables or `.env` files**. They are mounted as plain files from Kubernetes Secrets into `$SECRETS_DIR` (default: `/secrets`):
+
+```
+$SECRETS_DIR/database/user    # PostgreSQL username
+$SECRETS_DIR/database/pw      # PostgreSQL password
+$SECRETS_DIR/hana/user        # HANA username
+$SECRETS_DIR/hana/pw          # HANA password
+$SECRETS_DIR/s3/key           # AWS access key ID
+$SECRETS_DIR/s3/secret        # AWS secret access key
+```
+
+For local development use `SECRETS_DIR=local/.secrets`.
+
+Application configuration (non-secret env vars) is handled via **Pydantic `BaseSettings`** — never read `os.environ` directly in application code:
+
 ```python
-import os
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, Field
 
-load_dotenv()
-
-api_key = os.environ["OPENAI_API_KEY"]  # Raises KeyError if missing
+class Settings(BaseSettings):
+    database_host: str = Field(alias="DATABASE_HOST")
+    secrets_dir: Path = Field(default=Path("/secrets"), alias="SECRETS_DIR")
 ```
 
 ## Security Scanning
 
-- Use **bandit** for static security analysis:
-  ```bash
-  bandit -r src/
-  ```
+- **ruff** handles security-relevant lint rules — run via `just test` or `ruff check`
 
 ## Reference
 
-See skill: `django-security` for Django-specific security guidelines (if applicable).
+See command: `python-testing-patterns` for test secret file structure (`tests/static/secrets/`).

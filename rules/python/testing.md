@@ -11,28 +11,38 @@ paths:
 
 Use **pytest** as the testing framework.
 
-## Coverage
+## Running Tests
+
+Always use the `just` entrypoint — it loads the required environment variables before pytest:
 
 ```bash
-pytest --cov=src --cov-report=term-missing
+just test
 ```
 
-## Test Organization
+Direct invocation (env vars must already be set):
 
-Use `pytest.mark` for test categorization:
+```bash
+uv run pytest -m "not e2e" --no-cov -q
+```
+
+## Test Markers
 
 ```python
 import pytest
 
-@pytest.mark.unit
-def test_calculate_total():
+# Tests requiring a real Postgres container (Jenkins sidecar or local Docker)
+@pytest.mark.testAgainstPostgres
+def test_postgres_integration():
     ...
 
-@pytest.mark.integration
-def test_database_connection():
+# End-to-end tests with side effects — excluded from default runs
+@pytest.mark.e2e
+def test_full_flow():
     ...
 ```
 
+Default run excludes `e2e`. Tests not marked `testAgainstPostgres` must mock all database connections.
+
 ## Reference
 
-See skill: `python-testing` for detailed pytest patterns and fixtures.
+See skill: `python-testing-patterns` for detailed pytest patterns, fixtures, mocking strategy, and project-specific conventions.

@@ -1,5 +1,10 @@
 # Coding Style
 
+## General Style
+
+- No emojis in code, comments, or documentation
+- No trailing summaries after completing tasks — the diff speaks for itself
+
 ## Immutability (CRITICAL)
 
 ALWAYS create new objects, NEVER mutate existing ones:
@@ -35,6 +40,18 @@ ALWAYS validate at system boundaries:
 - Use schema-based validation where available
 - Fail fast with clear error messages
 - Never trust external data (API responses, user input, file content)
+
+## Repo Structure
+
+Standard layout across all repositories:
+- `charts/` — Helm charts
+- `docs/` — Project documentation
+- `src/` — Application source code
+
+Each repo must have a README with local dev and test setup steps.
+
+- Python projects: use `uv` as package manager
+- All projects: use `pre-commit` hooks
 
 ## Code Quality Checklist
 
