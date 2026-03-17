@@ -1,8 +1,1 @@
-{
-  "version": "2.1",
-  "observer": {
-    "enabled": false,
-    "run_interval_minutes": 5,
-    "min_observations_to_analyze": 20
-  }
-}
+/home/dmanns/.claude/skills/continuous-learning-v2/config.json
